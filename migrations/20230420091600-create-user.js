@@ -10,25 +10,42 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       roles_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references:{
+          model: "Roles",
+          key:"id"
+        }
       },
       coaches_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references:{
+          model: "Coaches",
+          key: "id"
+        }
       },
       name: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        required: true,
+        len: [2,20]
       },
       surname: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        required: true,
+        len: [2,50]
       },
       level: {
-        type: Sequelize.FLOAT
+        type: Sequelize.FLOAT,
+        required: true,
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        required: true,
+        unique: true
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        required: true,
+        len: [5,16]
       },
       createdAt: {
         allowNull: false,
