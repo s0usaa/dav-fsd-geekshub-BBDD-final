@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Match.belongsToMany(models.User, {through: "Match_Users", foreignKey: "match_id"})
     }
   }
   Match.init({

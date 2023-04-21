@@ -18,6 +18,7 @@ module.exports = {
       },
       coaches_id: {
         type: Sequelize.INTEGER,
+        required: true,
         references:{
           model: "Coaches",
           key: "id"
