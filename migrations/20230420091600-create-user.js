@@ -38,6 +38,11 @@ module.exports = {
         type: Sequelize.FLOAT,
         required: true,
       },
+      phone: {
+        type: Sequelize.STRING,
+        required: true,
+        unique: true
+      },
       email: {
         type: Sequelize.STRING,
         required: true,
