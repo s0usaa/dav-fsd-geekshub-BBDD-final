@@ -1,5 +1,5 @@
 const userControllers = {};
-const {User} = require('../models');
+const {User, Match_User} = require('../models');
 
 //Ver perfil de usuario
 userControllers.profile = async(req, res)=>{
@@ -42,6 +42,30 @@ userControllers.updateProfile = async(req, res)=>{
             message: "Fallo al actualizar tu perfil",
             error_message: error.message
         })
+    }
+}
+
+//Crear una partida
+userControllers.newMatch = async(req, res)=>{
+    try {
+        const userId = req.userId;
+
+        const {match_id, date, time} = req.body;
+        const match = {
+            user_id: userId,
+            match_id: match_id,
+            date: date,
+            time: time,
+        };
+
+        const game = await Match_User.create(match);
+        return res.json(game);
+    } catch (error) {
+        returnres.status(500).json({
+            success: false,
+            message: 'No se ha podido crear la partida',
+            error_message: error.message,
+        });
     }
 }
 
