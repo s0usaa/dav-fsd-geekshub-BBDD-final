@@ -1,4 +1,5 @@
 const userControllers = {};
+const { where } = require('sequelize');
 const {User, Match_User} = require('../models');
 
 //Ver perfil de usuario
@@ -69,4 +70,44 @@ userControllers.newMatch = async(req, res)=>{
     }
 }
 
+//Modificar una partida
+userControllers.updateMatch = async(req, res)=>{
+    try {
+        const userId = req.userId;
+        const {id, match_id, date, time} = req.body;
+
+        const match = await Match_User.findOne({
+            where:{
+                id:id,
+                user_id: userId,
+            }
+        });
+        if (!match){
+            return res.send('No existen partidas');
+        }
+
+        const matchUpdate = await Match_User.update({
+            match_id: match_id,
+            date: date,
+            time:time,
+        },
+        {where:{
+            id:id,
+            user_id:userId,
+        }}
+        );
+
+        if(!matchUpdate){
+            return res.send('Partida no modificada');
+        }
+
+        return res.send('Partida modificada');
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Fallo al actualizar la partida',
+            error_message: error.message
+        })
+    }
+}
 module.exports = userControllers;
