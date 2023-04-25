@@ -180,4 +180,41 @@ userControllers.getMatch = async(req, res)=>{
         });
     }
 }
+
+//Ver las pistas como usuario
+userControllers.getTracks = async(req, res)=>{
+    try {
+        const tracks = await Match.findAll({attributes: {exclude: ['createdAt', 'updatedAt']}});
+
+        return res.json({
+            success: true,
+            data: tracks,
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error al ver las pistas',
+            error_message: error.message
+        });
+    }
+}
+
+//Ver los entrenadores
+userControllers.getCoaches = async(req, res)=>{
+    try {
+        const coaches = await Coach.findAll({attributes: {exclude: ['createdAt', 'updatedAt']}});
+
+        return res.json({
+            success: true,
+            data: coaches,
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error al ver las pistas',
+            error_message: error.message
+        });
+    }
+}
+
 module.exports = userControllers;

@@ -3,7 +3,7 @@ const {User} = require('../models')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-//registro de usuario
+//registro de usuarios
 authControllers.registerUser = async(req, res)=>{
     try {
         const {name, surname, level, email, password} = req.body;
@@ -32,6 +32,7 @@ authControllers.registerUser = async(req, res)=>{
     }
 }
 
+//Login usuarios
 authControllers.login = async(req, res)=>{
     try {
         const {email, password} = req.body;
