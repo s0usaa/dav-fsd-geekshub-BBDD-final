@@ -110,4 +110,38 @@ userControllers.updateMatch = async(req, res)=>{
         })
     }
 }
+
+//Eliminar una partida
+userControllers.deleteMatch = async(req, res)=>{
+    try {
+        const userId = req.userId;
+        const matchId = req.params.id;
+
+        const match = await Match_User.findOne({
+            where:{
+                user_id: userId,
+                id: matchId
+            }
+        });
+
+        if (!match){
+            return res.send('No existen partidas');
+        }
+
+        const matchDelete = await Match_User.destroy({
+            where:{
+                id: matchId,
+                user_id: userId
+            }
+        });
+
+        return res.json(matchDelete);
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Error al borrar la partida",
+            error_message: error.message
+        });
+    }
+}
 module.exports = userControllers;
