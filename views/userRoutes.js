@@ -7,5 +7,6 @@ router.put('/profile', verifyToken, userControllers.updateProfile);
 router.post('/match', verifyToken, userControllers.newMatch);
 router.put('/match', verifyToken, userControllers.updateMatch);
 router.delete('/match/:id', verifyToken, userControllers.deleteMatch);
+router.get('/match', verifyToken, userControllers.getMatch);
 
 module.exports = router;

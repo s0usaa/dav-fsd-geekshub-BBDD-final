@@ -1,6 +1,6 @@
 const userControllers = {};
 const { where } = require('sequelize');
-const {User, Match_User} = require('../models');
+const {User, Match_User, Match, Coach} = require('../models');
 
 //Ver perfil de usuario
 userControllers.profile = async(req, res)=>{
@@ -111,7 +111,7 @@ userControllers.updateMatch = async(req, res)=>{
     }
 }
 
-//Eliminar una partida
+//Eliminar una partida como usuario
 userControllers.deleteMatch = async(req, res)=>{
     try {
         const userId = req.userId;
@@ -140,6 +140,42 @@ userControllers.deleteMatch = async(req, res)=>{
         return res.status(500).json({
             success: false,
             message: "Error al borrar la partida",
+            error_message: error.message
+        });
+    }
+}
+
+//Ver partidas como usuario
+userControllers.getMatch = async(req, res)=>{
+    try {
+        const userId = req.userId;
+
+        const viewMatch = await Match_User.findAll({
+            where: {
+                user_id: userId
+            },
+            include: [
+                {
+                    model: Match,
+                    attributes: {exclude: ['id', 'createdAt', 'updatedAt']},
+                },
+                {
+                    model: User,
+                    include: [{
+                        model: Coach,
+                        attributes: {exclude: ['createdAt', 'updatedAt']}
+                    }],
+                    attributes: ['name', 'surname', 'level']
+                }
+            ],
+            attributes: {exclude: ['user_id', 'match_id', 'createdAt', 'updatedAt']}
+        });
+
+        return res.json(viewMatch)
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Error al ver tus partidas',
             error_message: error.message
         });
     }
