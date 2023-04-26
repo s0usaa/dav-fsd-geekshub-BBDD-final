@@ -171,7 +171,10 @@ userControllers.getMatch = async(req, res)=>{
             attributes: {exclude: ['user_id', 'match_id', 'createdAt', 'updatedAt']}
         });
 
-        return res.json(viewMatch)
+        return res.json({
+            success: true,
+            data: viewMatch
+        })
     } catch (error) {
         return res.status(500).json({
             success: false,
