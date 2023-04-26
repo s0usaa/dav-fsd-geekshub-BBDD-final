@@ -14,7 +14,9 @@ module.exports = {
         references:{
           model: "Roles",
           key:"id"
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       coaches_id: {
         type: Sequelize.INTEGER,
@@ -22,7 +24,9 @@ module.exports = {
         references:{
           model: "Coaches",
           key: "id"
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       name: {
         type: Sequelize.STRING,

@@ -1,6 +1,6 @@
 const userControllers = {};
 const { where } = require('sequelize');
-const {User, Match_User, Match, Coach} = require('../models');
+const {User, Match, Track, Coach} = require('../models');
 
 //Ver perfil de usuario
 userControllers.profile = async(req, res)=>{
@@ -51,15 +51,14 @@ userControllers.newMatch = async(req, res)=>{
     try {
         const userId = req.userId;
 
-        const {match_id, date, time} = req.body;
+        const {track_id, date} = req.body;
         const match = {
             user_id: userId,
-            match_id: match_id,
+            track_id: track_id,
             date: date,
-            time: time,
         };
 
-        const game = await Match_User.create(match);
+        const game = await Match.create(match);
         return res.json(game);
     } catch (error) {
         returnres.status(500).json({
@@ -74,9 +73,9 @@ userControllers.newMatch = async(req, res)=>{
 userControllers.updateMatch = async(req, res)=>{
     try {
         const userId = req.userId;
-        const {id, match_id, date, time} = req.body;
+        const {id, track_id, date} = req.body;
 
-        const match = await Match_User.findOne({
+        const match = await Match.findOne({
             where:{
                 id:id,
                 user_id: userId,
@@ -86,10 +85,9 @@ userControllers.updateMatch = async(req, res)=>{
             return res.send('No existen partidas');
         }
 
-        const matchUpdate = await Match_User.update({
-            match_id: match_id,
+        const matchUpdate = await Match.update({
+            track_id: track_id,
             date: date,
-            time:time,
         },
         {where:{
             id:id,
@@ -117,7 +115,7 @@ userControllers.deleteMatch = async(req, res)=>{
         const userId = req.userId;
         const matchId = req.params.id;
 
-        const match = await Match_User.findOne({
+        const match = await Match.findOne({
             where:{
                 user_id: userId,
                 id: matchId
@@ -128,7 +126,7 @@ userControllers.deleteMatch = async(req, res)=>{
             return res.send('No existen partidas');
         }
 
-        const matchDelete = await Match_User.destroy({
+        const matchDelete = await Match.destroy({
             where:{
                 id: matchId,
                 user_id: userId
@@ -150,13 +148,13 @@ userControllers.getMatch = async(req, res)=>{
     try {
         const userId = req.userId;
 
-        const viewMatch = await Match_User.findAll({
+        const viewMatch = await Match.findAll({
             where: {
                 user_id: userId
             },
             include: [
                 {
-                    model: Match,
+                    model: Track,
                     attributes: {exclude: ['id', 'createdAt', 'updatedAt']},
                 },
                 {
@@ -187,7 +185,7 @@ userControllers.getMatch = async(req, res)=>{
 //Ver las pistas como usuario
 userControllers.getTracks = async(req, res)=>{
     try {
-        const tracks = await Match.findAll({attributes: {exclude: ['createdAt', 'updatedAt']}});
+        const tracks = await Track.findAll({attributes: {exclude: ['createdAt', 'updatedAt']}});
 
         return res.json({
             success: true,

@@ -11,12 +11,14 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Match.hasMany(models.Match_User, {foreignKey: "match_id"})
+      Match.belongsTo(models.User, {foreignKey: 'user_id'})
+      Match.belongsTo(models.Track, {foreignKey: 'track_id'})
     }
   }
   Match.init({
-    track_number: DataTypes.INTEGER,
-    type: DataTypes.STRING
+    user_id: DataTypes.INTEGER,
+    track_id: DataTypes.INTEGER,
+    date: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Match',

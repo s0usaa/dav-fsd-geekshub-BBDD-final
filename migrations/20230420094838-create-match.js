@@ -2,7 +2,7 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Match_Users', {
+    await queryInterface.createTable('Matches', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -14,20 +14,21 @@ module.exports = {
         references:{
           model: "Users",
           key: "id"
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
-      match_id: {
+      track_id: {
         type: Sequelize.INTEGER,
         references:{
-          model: "Matches",
+          model: "Tracks",
           key: "id"
-        }
+        },
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
       },
       date: {
-        type: Sequelize.DATE
-      },
-      time: {
-        type: Sequelize.TIME
+        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -40,6 +41,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Match_Users');
+    await queryInterface.dropTable('Matches');
   }
 };
