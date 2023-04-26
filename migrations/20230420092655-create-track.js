@@ -10,7 +10,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       track_number: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        unique: true
       },
       type: {
         type: Sequelize.STRING

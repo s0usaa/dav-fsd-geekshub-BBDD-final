@@ -1,5 +1,5 @@
 const adminControllers = {};
-const {User} = require('../models');
+const {User, Track} = require('../models');
 
 //Ver todos los usuarios como Admin
 adminControllers.getAllUsers = async(req, res)=>{
@@ -50,4 +50,28 @@ adminControllers.getUserById = async(req, res)=>{
     }
 }
 
+//Crear pistas
+adminControllers.createTracks = async(req, res)=>{
+    try {
+        const {track_number, type} = req.body
+
+        const addTrack ={
+            track_number: track_number,
+            type: type
+        }
+
+        const newTrack = await Track.create(addTrack)
+
+        return res.json({
+            success: true,
+            data: newTrack
+        })
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'No se ha podido crear la pista',
+            error_message: error.message,
+        });
+    }
+}
 module.exports = adminControllers;

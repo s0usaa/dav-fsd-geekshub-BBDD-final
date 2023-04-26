@@ -61,7 +61,7 @@ userControllers.newMatch = async(req, res)=>{
         const game = await Match.create(match);
         return res.json(game);
     } catch (error) {
-        returnres.status(500).json({
+        return res.status(500).json({
             success: false,
             message: 'No se ha podido crear la partida',
             error_message: error.message,
