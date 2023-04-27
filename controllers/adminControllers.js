@@ -207,5 +207,72 @@ adminControllers.createCoaches = async(req,res)=>{
     }
 }
 
+//Eliminar entreador como Admin
+adminControllers.deleteCoaches = async(req, res)=>{
+    try {
+        const coachId = req.params.id;
+
+        const coaches = await Coach.findOne({
+            where:{
+                id: coachId
+            }
+        });
+
+        if(!coaches){
+            return res.send('No existe ese entrenador');
+        }
+
+        const coachDelete = await Coach.destroy({
+            where:{
+                id: coachId
+            }
+        });
+
+        return res.json({
+            success: true,
+            data: coachDelete
+        })
+    } catch (error) {
+        
+    }
+}
+
+//Modificar entrenador como Admin
+adminControllers.updateCoaches = async(req,res)=>{
+    try {
+        const {id, especialidad} = req.body;
+
+        const coaches = await Coach.findOne({
+            where:{
+                id:id
+            }
+        });
+
+        if(!coaches){
+            return res.send('No existe ese entrenador');
+        }
+
+        const coachUpdate = await Coach.update({
+            id:id,
+            especialidad: especialidad
+        },
+        {where:{
+            id:id
+        }
+        });
+
+        if(!coachUpdate){
+            return res.send('Entrenador no modificado');
+        }
+
+        return res.send('Entrenador modificado');
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: 'Fallo al actualizar el entrenador',
+            error_message: error.message
+        });
+    }
+}
 
 module.exports = adminControllers;

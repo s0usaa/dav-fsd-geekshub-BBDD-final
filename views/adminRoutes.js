@@ -11,5 +11,7 @@ router.put('/tracks', verifyToken, isAdmin, adminControllers.updateTracks);
 router.get('/tracks', verifyToken, isAdmin, adminControllers.getTracks);
 router.get('/coaches', verifyToken, isAdmin, adminControllers.getCoaches);
 router.post('/coaches', verifyToken, isAdmin, adminControllers.createCoaches);
+router.delete('/coaches/:id', verifyToken, isAdmin, adminControllers.deleteCoaches);
+router.put('/coaches', verifyToken, isAdmin, adminControllers.updateCoaches);
 
 module.exports = router;
