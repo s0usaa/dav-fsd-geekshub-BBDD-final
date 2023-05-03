@@ -17,12 +17,14 @@ let corsOptions = {
     optionsSuccessStatus: 204
 };
 
+app.use(cors(corsOptions));
+
 app.get('/welcome', (req, res)=>{
     return res.send('Bienvenido a mi app')
 })
 
 app.use(router);
-app.use(cors(corsOptions));
+
 
 
 

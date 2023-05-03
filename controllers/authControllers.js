@@ -57,7 +57,8 @@ authControllers.login = async(req, res)=>{
         {
         userId: user.id,
         email: user.email,
-        roleId: user.roles_id
+        roleId: user.roles_id,
+        name: user.name
         },
         "secreto",
         {expiresIn: "5h"}
