@@ -5,7 +5,7 @@ const verifyToken = require('../middleware/verifyToken');
 router.get('/profile', verifyToken, userControllers.profile);
 router.put('/profile', verifyToken, userControllers.updateProfile);
 router.post('/match', verifyToken, userControllers.newMatch);
-router.put('/match', verifyToken, userControllers.updateMatch);
+router.put('/match/:id', verifyToken, userControllers.updateMatch);
 router.delete('/match/:id', verifyToken, userControllers.deleteMatch);
 router.get('/match', verifyToken, userControllers.getMatch);
 router.get('/tracks', verifyToken, userControllers.getTracks);

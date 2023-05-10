@@ -73,11 +73,12 @@ userControllers.newMatch = async(req, res)=>{
 userControllers.updateMatch = async(req, res)=>{
     try {
         const userId = req.userId;
-        const {id, track_id, date} = req.body;
+        const matchId = req.params.id;
+        const {track_id, date} = req.body;
 
         const match = await Match.findOne({
             where:{
-                id:id,
+                id:matchId,
                 user_id: userId,
             }
         });
@@ -90,7 +91,7 @@ userControllers.updateMatch = async(req, res)=>{
             date: date,
         },
         {where:{
-            id:id,
+            id:matchId,
             user_id:userId,
         }}
         );
