@@ -112,11 +112,12 @@ adminControllers.deleteTracks = async(req, res)=>{
 //Modificar una pista como Admin
 adminControllers.updateTracks = async(req, res)=>{
     try {
-        const {id, type} = req.body;
+        const trackId = req.params.id
+        const {type} = req.body;
 
         const tracks = await Track.findOne({
             where:{
-                id:id
+                id:trackId
             }
         });
 
@@ -125,11 +126,11 @@ adminControllers.updateTracks = async(req, res)=>{
         }
 
         const trackUpdate = await Track.update({
-            id:id,
+            id:trackId,
             type: type
         },
         {where:{
-            id:id
+            id:trackId
         }
         });
 
@@ -240,11 +241,12 @@ adminControllers.deleteCoaches = async(req, res)=>{
 //Modificar entrenador como Admin
 adminControllers.updateCoaches = async(req,res)=>{
     try {
-        const {id, especialidad} = req.body;
+        const coachId = req.params.id;
+        const {especialidad} = req.body;
 
         const coaches = await Coach.findOne({
             where:{
-                id:id
+                id:coachId
             }
         });
 
@@ -253,11 +255,11 @@ adminControllers.updateCoaches = async(req,res)=>{
         }
 
         const coachUpdate = await Coach.update({
-            id:id,
+            id:coachId,
             especialidad: especialidad
         },
         {where:{
-            id:id
+            id:coachId
         }
         });
 
