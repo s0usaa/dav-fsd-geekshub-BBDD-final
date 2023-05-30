@@ -47,4 +47,5 @@ Este proyecto requería una API funcional para un proyecto final de libre creaci
   
   Para ver y utilizar los endpoints del proyecto, basta con descargar la compilacion e importarla en Postman.
   
-  [PadelTrotters.postman_collection2.json.zip](https://github.com/s0usaa/dav-fsd-geekshub-BBDD-final/files/11463701/PadelTrotters.postman_collection2.json.zip)
+  [PadelTrotters.postman_collection 2.json.zip](https://github.com/s0usaa/dav-fsd-geekshub-BBDD-final/files/11601644/PadelTrotters.postman_collection.2.json.zip)
+
