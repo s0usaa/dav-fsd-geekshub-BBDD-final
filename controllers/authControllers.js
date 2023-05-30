@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 //registro de usuarios
 authControllers.registerUser = async(req, res)=>{
     try {
-        const {name, surname, level, phone, email, password} = req.body;
+        const {name, surname, level, phone, email, password, coaches_id} = req.body;
         
         const encryptedPassword = bcrypt.hashSync(password, 10);
 
@@ -19,7 +19,7 @@ authControllers.registerUser = async(req, res)=>{
             phone: phone,
             password: encryptedPassword,
             roles_id: 2,
-            coaches_id:1
+            coaches_id:coaches_id
         }
         const user = await User.create(newUser)
 

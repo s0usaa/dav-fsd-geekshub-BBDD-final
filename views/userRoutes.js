@@ -9,6 +9,6 @@ router.put('/match/:id', verifyToken, userControllers.updateMatch);
 router.delete('/match/:id', verifyToken, userControllers.deleteMatch);
 router.get('/match', verifyToken, userControllers.getMatch);
 router.get('/tracks', verifyToken, userControllers.getTracks);
-router.get('/coaches', verifyToken, userControllers.getCoaches);
+router.get('/coaches', userControllers.getCoaches);
 
 module.exports = router;
